@@ -46,16 +46,16 @@ namespace Middle_Assignments
             services.AddSingleton(mapper);
 
             services.AddAuthentication(IISDefaults.AuthenticationScheme);
-            services.AddAuthorization(options =>
-            {
+            // services.AddAuthorization(options =>
+            // {
 
-                options.AddPolicy("Admin",
-                    authBuilder =>
-                    {
-                        authBuilder.RequireRole("Administrators");
-                    });
+            //     options.AddPolicy("Admin",
+            //         authBuilder =>
+            //         {
+            //             authBuilder.RequireRole("Administrators");
+            //         });
 
-            });
+            // });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
