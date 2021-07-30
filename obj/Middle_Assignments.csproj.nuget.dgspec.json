@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "e:\\JOBS\\NASHTECH 2021\\Middle_Assignments\\Middle_Assignments.csproj": {}
+    "E:\\JOBS\\NASHTECH 2021\\Middle_Assignments\\Middle_Assignments.csproj": {}
   },
   "projects": {
-    "e:\\JOBS\\NASHTECH 2021\\Middle_Assignments\\Middle_Assignments.csproj": {
+    "E:\\JOBS\\NASHTECH 2021\\Middle_Assignments\\Middle_Assignments.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "e:\\JOBS\\NASHTECH 2021\\Middle_Assignments\\Middle_Assignments.csproj",
+        "projectUniqueName": "E:\\JOBS\\NASHTECH 2021\\Middle_Assignments\\Middle_Assignments.csproj",
         "projectName": "Middle_Assignments",
-        "projectPath": "e:\\JOBS\\NASHTECH 2021\\Middle_Assignments\\Middle_Assignments.csproj",
+        "projectPath": "E:\\JOBS\\NASHTECH 2021\\Middle_Assignments\\Middle_Assignments.csproj",
         "packagesPath": "C:\\Users\\LENOVO\\.nuget\\packages\\",
-        "outputPath": "e:\\JOBS\\NASHTECH 2021\\Middle_Assignments\\obj\\",
+        "outputPath": "E:\\JOBS\\NASHTECH 2021\\Middle_Assignments\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\LENOVO\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -39,6 +39,10 @@
           "targetAlias": "net5.0",
           "dependencies": {
             "Microsoft.AspNetCore.Authentication.JwtBearer": {
+              "target": "Package",
+              "version": "[5.0.8, )"
+            },
+            "Microsoft.AspNetCore.Authentication.Negotiate": {
               "target": "Package",
               "version": "[5.0.8, )"
             },

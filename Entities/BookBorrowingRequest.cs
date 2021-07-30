@@ -16,6 +16,12 @@ namespace Middle_Assignments
         public int Quantity { set; get; }
 
         [Column(TypeName = "datetime")]
+        public DateTime BorrowFromDate { get; set; }
+
+        [Column(TypeName = "datetime")]
+        public DateTime BorrowToDate { get; set; }
+
+        [Column(TypeName = "datetime")]
         public DateTime CreatedDate { get; set; }
 
         [Column(TypeName = "datetime")]

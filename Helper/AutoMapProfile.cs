@@ -9,7 +9,8 @@ namespace Middle_Assignments.Helpers
         {
             //CreateMap<User, UserModel>();
             CreateMap<RegisterModel, User>();
-            CreateMap<UpdateModel, User>();
+            CreateMap<UpdateUserModel, User>();
+            //CreateMap<UpdateBookBorrowRequestModel, BookBorrowingRequest>();
         }
     }
 }

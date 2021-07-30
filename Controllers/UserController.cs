@@ -9,29 +9,29 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using AutoMapper;
 using Middle_Assignments.Models.Users;
+using System.Threading.Tasks;
+using AutoMapper.Configuration;
 
 namespace Middle_Assignments.Controllers
 {
     [Authorize]
     [ApiController]
-    [Route("[controller]")]
+    //[Route("server/[controller]")]
     //[Authorize(AuthenticationSchemes = "AuthenticatedUserSchemeName", Policy = "AuthorizedUserPolicyName")]
-    public class UsersController : ControllerBase
+    public class UserController : ControllerBase
     {
         private IUserService _userService;
+        private IConfiguration _config;
         private IMapper _mapper;
-        public UsersController(
-            IUserService userService,
-            IMapper mapper
-         )
+        public UserController(IUserService userService, IMapper mapper)
         {
             _userService = userService;
             _mapper = mapper;
-
         }
 
         [AllowAnonymous]
-        [HttpPost("authenticate")]
+        [HttpPost]
+        [Route("login")]
         public IActionResult Authenticate([FromBody] AuthenticateModel model)
         {
             var user = _userService.Authenticate(model.Username, model.Password);
@@ -45,7 +45,8 @@ namespace Middle_Assignments.Controllers
             {
                 Subject = new ClaimsIdentity(new Claim[]
                 {
-                    new Claim(ClaimTypes.Name, user.UserId.ToString())
+                    new Claim(ClaimTypes.Name, user.UserId.ToString()),
+                    new Claim(ClaimTypes.Role, user.UserRole)
                 }),
                 Expires = DateTime.UtcNow.AddDays(7),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
@@ -63,7 +64,8 @@ namespace Middle_Assignments.Controllers
         }
 
         [AllowAnonymous]
-        [HttpPost("register")]
+        [HttpPost]
+        [Route("register")]
         public IActionResult Register([FromBody] RegisterModel model)
         {
             // map model to entity
@@ -83,42 +85,73 @@ namespace Middle_Assignments.Controllers
         }
 
         [HttpGet]
+        [Route("gets")]
         public List<User> GetAllUser()
         {
             return _userService.GetAllUser();
         }
 
-        [HttpGet("{id}")]
+        [HttpGet]
+        [Route("get/{id}")]
         public User GetUserById(int id)
         {
             return _userService.GetUserById(id);
         }
 
-        [HttpPut("{id}")]
-        public IActionResult UpdateUser(int id, [FromBody] UpdateModel model)
+        [HttpPut]
+        [Route("put/{id}")]
+        public IActionResult UpdateUser(int id, [FromBody] UpdateUserModel model)
         {
+                var user = _mapper.Map<User>(model);
+                user.UserId = id;
+                try
+                {
+                    // update user 
+                    _userService.UpdateUser(user, model.Password);
+                    return Ok();
+                }
+                catch (AppException ex)
+                {
+                    // return error message if there was an exception
+                    return BadRequest(new { message = ex.Message });
+                }
             // map model to entity and set id
-            var user = _mapper.Map<User>(model);
-            user.UserId = id;
-
-            try
-            {
-                // update user 
-                _userService.UpdateUser(user, model.Password);
-                return Ok();
-            }
-            catch (AppException ex)
-            {
-                // return error message if there was an exception
-                return BadRequest(new { message = ex.Message });
-            }
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete]
+        [Route("delete/{id}")]
         public IActionResult DeleteUserById(int id)
         {
             _userService.DeleteUserById(id);
             return Ok();
         }
+
+        // public string Generate(User user)
+        // {
+        //     List<Claim> claims = new List<Claim>() {
+        //         new Claim (JwtRegisteredClaimNames.Jti,
+        //             Guid.NewGuid().ToString()),
+
+        //         new Claim (JwtRegisteredClaimNames.Sub,
+        //         user.UserId.ToString()),
+
+        //         new Claim (JwtRegisteredClaimNames.Sub,
+        //         user.UserName.ToString()),
+
+        //         new Claim (JwtRegisteredClaimNames.Sub,
+        //         user.UserRole.ToString()),
+
+        //         new Claim (ClaimTypes.Role, user.UserRole)
+        // };
+        //     var tokenDecriptontor = new SecurityTokenDescriptor
+        //     {
+        //         Subject = new ClaimsIdentity(claims)
+        //     };
+
+        //     var accessToken = new JwtSecurityTokenHandler();
+        //     var token = accessToken.CreateToken(tokenDecriptontor);
+
+        //     return accessToken.WriteToken(token);
+        // }
     }
 }

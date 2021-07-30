@@ -17,5 +17,7 @@ namespace Middle_Assignments.Models.Users
 
         public int PhoneNumber { set; get; }
 
+        public string UserRole { get; set; } = "0";
+
     }
 }

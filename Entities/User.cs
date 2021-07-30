@@ -24,15 +24,15 @@ namespace Middle_Assignments
         [Column(TypeName = "varchar(255)")]
         public string Password { get; set; }
 
+        [Column(TypeName = "varchar(3)")]
+        public string  Location { get; set; }
+
         [Column(TypeName = "datetime")]
         public Nullable<DateTime> DateOfBirth { get; set; }
 
         [Column(TypeName = "varchar(30)")]
         public string PhoneNumber { get; set; }
-
-        [Column(TypeName = "bit")]
-        public bool UserRoll { get; set; }
-
+        public string UserRole { get; set; }
     
         [Column(TypeName = "datetime")]
         public DateTime CreatedDate { get; set; } = DateTime.UtcNow;

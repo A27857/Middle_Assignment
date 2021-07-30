@@ -10,9 +10,11 @@ namespace Middle_Assignments
     public class BookService : IBookService
     {
         private LibraryContext _libraryContext;
-        public BookService(LibraryContext libraryContext)
+        private IUserService _userService;
+        public BookService(LibraryContext libraryContext, IUserService userService)
         {
             _libraryContext = libraryContext;
+            _userService = userService;
         }
         public List<Book> CreateBook(Book book)
         {
@@ -40,9 +42,9 @@ namespace Middle_Assignments
             _libraryContext.SaveChanges();
             return true;
         }
-
         public List<Book> GetAllBook()
         {
+            
             return _libraryContext.DbBook.ToList();
         }
 

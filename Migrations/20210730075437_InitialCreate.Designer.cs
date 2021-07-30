@@ -10,7 +10,7 @@ using Middle_Assignments;
 namespace Middle_Assignments.Migrations
 {
     [DbContext(typeof(LibraryContext))]
-    [Migration("20210728101730_InitialCreate")]
+    [Migration("20210730075437_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -77,6 +77,12 @@ namespace Middle_Assignments.Migrations
 
                     b.Property<int>("BookId")
                         .HasColumnType("int");
+
+                    b.Property<DateTime>("BorrowFromDate")
+                        .HasColumnType("datetime");
+
+                    b.Property<DateTime>("BorrowToDate")
+                        .HasColumnType("datetime");
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime");
@@ -146,6 +152,9 @@ namespace Middle_Assignments.Migrations
                     b.Property<string>("Email")
                         .HasColumnType("varchar(100)");
 
+                    b.Property<string>("Location")
+                        .HasColumnType("varchar(3)");
+
                     b.Property<string>("Password")
                         .IsRequired()
                         .HasColumnType("varchar(255)");
@@ -163,8 +172,8 @@ namespace Middle_Assignments.Migrations
                         .IsRequired()
                         .HasColumnType("varchar(50)");
 
-                    b.Property<bool>("UserRoll")
-                        .HasColumnType("bit");
+                    b.Property<string>("UserRole")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("UserId");
 

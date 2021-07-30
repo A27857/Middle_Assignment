@@ -4,16 +4,11 @@ namespace Middle_Assignments
 {
     public class LibraryContext : DbContext
     {
-        public LibraryContext()
-        {
-
-        }
 
         public LibraryContext(DbContextOptions<LibraryContext> options)
             : base(options)
         {
         }
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<User>().Property(p => p.UserId).ValueGeneratedOnAdd();
@@ -24,10 +19,9 @@ namespace Middle_Assignments
 
             modelBuilder.Entity<Category>().Property(p => p.CategoryId).ValueGeneratedOnAdd();
         }
-
         public DbSet<User> DbUser { set; get; }
         public DbSet<Book> DbBook { set; get; }
         public DbSet<Category> DbCategory { set; get; }
-        public DbSet<BookBorrowingRequest> DbBookBorrowingRequest { set; get;}
+        public DbSet<BookBorrowingRequest> DbBookBorrowingRequest { set; get; }
     }
 }

@@ -8,6 +8,7 @@ using Microsoft.OpenApi.Models;
 using AutoMapper;
 using Middle_Assignments.Helpers;
 using Microsoft.AspNetCore.Server.IISIntegration;
+using Microsoft.AspNetCore.Authentication.Negotiate;
 
 namespace Middle_Assignments
 {
@@ -35,6 +36,7 @@ namespace Middle_Assignments
             services.AddScoped<IBookService, BookService>();
             services.AddScoped<ICategoryService, CategoryService>();
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IBookBorrowingRequestService, BookBorrowingRequestService>();
 
             //services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             var mappingConfig = new MapperConfiguration(mc =>
@@ -46,19 +48,19 @@ namespace Middle_Assignments
             services.AddSingleton(mapper);
 
             services.AddAuthentication(IISDefaults.AuthenticationScheme);
+
+            services.AddAuthentication(NegotiateDefaults.AuthenticationScheme).AddNegotiate();
+
             // services.AddAuthorization(options =>
             // {
-
-            //     options.AddPolicy("Admin",
-            //         authBuilder =>
-            //         {
-            //             authBuilder.RequireRole("Administrators");
-            //         });
-
+            //     options.AddPolicy("RequireAdminRole", policy => policy.RequireClaim("Admin"));
             // });
+        //     services.AddAuthorization(options =>
+        //    {
+        //        options.AddPolicy("RequireUserRole", policy => policy.RequireClaim("User"));
+        //    });
         }
-
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        // This method gets called by the    runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())

@@ -34,9 +34,10 @@ namespace Middle_Assignments.Migrations
                     UserName = table.Column<string>(type: "varchar(50)", nullable: false),
                     Email = table.Column<string>(type: "varchar(100)", nullable: true),
                     Password = table.Column<string>(type: "varchar(255)", nullable: false),
+                    Location = table.Column<string>(type: "varchar(3)", nullable: true),
                     DateOfBirth = table.Column<DateTime>(type: "datetime", nullable: true),
                     PhoneNumber = table.Column<string>(type: "varchar(30)", nullable: true),
-                    UserRoll = table.Column<bool>(type: "bit", nullable: false),
+                    UserRole = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreatedDate = table.Column<DateTime>(type: "datetime", nullable: false),
                     PasswordHash = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
                     PasswordSalt = table.Column<byte[]>(type: "varbinary(max)", nullable: true)
@@ -79,6 +80,8 @@ namespace Middle_Assignments.Migrations
                     UserId = table.Column<int>(type: "int", nullable: false),
                     BookId = table.Column<int>(type: "int", nullable: false),
                     Quantity = table.Column<int>(type: "int", nullable: false),
+                    BorrowFromDate = table.Column<DateTime>(type: "datetime", nullable: false),
+                    BorrowToDate = table.Column<DateTime>(type: "datetime", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "datetime", nullable: false),
                     UpdateDate = table.Column<DateTime>(type: "datetime", nullable: false),
                     DeleteDate = table.Column<DateTime>(type: "datetime", nullable: false)

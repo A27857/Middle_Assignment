@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 
 namespace Middle_Assignments
 {
@@ -13,6 +15,4 @@ namespace Middle_Assignments
         void UpdateUser(User user, string password = null);
         void DeleteUserById(int id);
     }
-
-    
 }
